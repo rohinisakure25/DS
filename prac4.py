@@ -57,8 +57,11 @@ print(f"RMSE: {rmse:.2f}")
 print(f"Intercept: {model.intercept_}") 
 
 # Step 6: Visualization
-plt.figure(figsize=(8,6)) 
-plt.scatter(y_test, y_pred) 
+plt.figure(figsize=(8,6))
+plt.scatter(y_test, y_pred)
+plt.plot([y_test.min(), y_test.max()],
+         [y_test.min(), y_test.max()],
+         'r--')
 plt.xlabel("Actual Prices") 
 plt.ylabel("Predicted Prices") 
 plt.title("Actual vs Predicted Prices") 
