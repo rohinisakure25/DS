@@ -1,13 +1,8 @@
 import pandas as pd
 import seaborn as sns
 
-# Load the dataset [cite: 1, 2]
 df = sns.load_dataset('tips')
-
-# Display the first 5 rows [cite: 3]
 print(df.head(5))
-
-# Group by 'day' and calculate summary statistics for 'total_bill' [cite: 5]
 grouped_stats = df.groupby('day')['total_bill'].agg(['mean', 'median', 'min', 'max', 'std'])
 print("Summary Statistics of Bill by Day: ")
 print(grouped_stats)

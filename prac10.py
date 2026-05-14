@@ -3,11 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Step 1: Load the dataset
-# Using the Seaborn version for easier plotting with 'species' as a column
 df = sns.load_dataset('iris')
-
-# --- Task 1: Scan Dataset & List Features ---
 print("Dataset Info:")
 print(df.info())
 print("\nFirst 5 rows:")
