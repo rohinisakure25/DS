@@ -1,28 +1,62 @@
+# Import Required Libraries
 import pandas as pd
-import seaborn as sns
+import numpy as np
 
-df = sns.load_dataset('tips')
-print(df.head(5))
-grouped_stats = df.groupby('day')['total_bill'].agg(['mean', 'median', 'min', 'max', 'std'])
-print("Summary Statistics of Bill by Day: ")
-print(grouped_stats)
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
 
-# Create a numeric mapping for the 'day' column [cite: 22]
-day_mapping = {day: i for i, day in enumerate(df['day'].unique())}
-df['day_numeric'] = df['day'].map(day_mapping)
+columns = [
+    'Sepal_Length',
+    'Sepal_Width',
+    'Petal_Length',
+    'Petal_Width',
+    'Species'
+]
 
-# Display the mapping results [cite: 24, 25]
-print("\nFirst 5 rows with numeric day mapping:")
-print(df[['day', 'day_numeric']].head())
+iris = pd.read_csv(url, names=columns)
 
-# Filter data into Smokers and Non-Smokers [cite: 37, 39]
-smokers = df[df['smoker'] == 'Yes']
-non_smokers = df[df['smoker'] == 'No']
+print("First 5 Rows of Dataset:\n")
+print(iris.head())
 
-# Print descriptive statistics for tips among smokers [cite: 40, 41]
-print("Statistics for Smokers:")
-print(smokers['tip'].describe())
+# ---------------------------------------------------
+# 1. Summary Statistics Grouped by Categorical Variable
+# ---------------------------------------------------
 
-# Print descriptive statistics for tips among non-smokers [cite: 59, 60]
-print("Statistics for Non-Smokers:")
-print(non_smokers['tip'].describe())
+print("\nSummary Statistics Grouped by Species:\n")
+
+grouped_data = iris.groupby('Species')
+
+summary = grouped_data['Sepal_Length'].agg([
+    'mean',
+    'median',
+    'min',
+    'max',
+    'std'
+])
+
+print(summary)
+
+# ---------------------------------------------------
+# Create List of Numeric Values for Each Category
+# ---------------------------------------------------
+
+print("\nList of Sepal Length Values for Each Species:\n")
+
+species_lists = grouped_data['Sepal_Length'].apply(list)
+
+print(species_lists)
+
+# ---------------------------------------------------
+# 2. Statistical Details for Each Species
+# ---------------------------------------------------
+
+species_names = iris['Species'].unique()
+
+for species in species_names:
+
+    print("\n====================================")
+    print(f"Statistics for {species}")
+    print("====================================")
+
+    species_data = iris[iris['Species'] == species]
+
+    print(species_data.describe())
